@@ -1,2 +1,5 @@
 rootProject.name = "RxJavaExample"
 include ':app'
+include ':usecases'
+include ':domain'
+include ':data'
