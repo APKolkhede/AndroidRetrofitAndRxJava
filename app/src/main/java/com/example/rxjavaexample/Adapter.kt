@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.domain.Character
 
 class Adapter(private val characters: List<Character>) :
@@ -27,13 +25,11 @@ class Adapter(private val characters: List<Character>) :
         private var characterName: TextView = v.findViewById(R.id.characterName)
         private var characterImage: ImageView = v.findViewById(R.id.characterImage)
         private var characterStatus: TextView = v.findViewById(R.id.characterStatus)
-        private var view = v
 
         fun bindCharacter(character: Character) {
             characterName.text = character.name
             characterStatus.text = character.status
-            Glide.with(view).load(character.image).apply(RequestOptions.circleCropTransform())
-                .into(characterImage)
+            characterImage.loadImage(imageUrl = character.image)
         }
     }
 }
