@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val v = ViewModelProviders.of(
             this,
             ViewModelFactory {
@@ -32,14 +31,10 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         ).get(ViewModel::class.java)
-        v.getCharacters()
-
         v.getResponse().observe(
-            this,
-            {
-                updateUIState(it)
-            }
+            this, { updateUIState(it) }
         )
+        v.getCharacters()
         linearLayoutManager = LinearLayoutManager(this)
         binding.characterListView.layoutManager = linearLayoutManager
     }
@@ -54,6 +49,8 @@ class MainActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.VISIBLE
             }
             is State.Failure -> {
+                binding.errorMessage.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.GONE
             }
         }
     }
